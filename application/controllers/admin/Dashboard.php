@@ -7,15 +7,19 @@ class Dashboard extends CI_Controller {
 
     
     public function __construct()
-    {
+    {   
         parent::__construct();
-        
+        if (!$_SESSION['user_id']) {
+            return redirect('admin/auth');
+        }
     }
     
     public function index()
     {
         header("Access-Control-Allow-Origin: *");
-        $data = array();
+        $data = array(
+            'page_title' => 'Dashboard admin'
+        );
 
         $this->template->set('title', 'Dashboard');
         $this->template->load('default', 'contents', 'admin/dashboard', $data);
